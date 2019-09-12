@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to PyGlow’s documentation! &#8212; PyGlow 0.1.7 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="gettingstarted.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <a class="reference internal image-reference" href="_images/PyGlow_logo.jpg"><img alt="Alternative text" src="_images/PyGlow_logo.jpg" style="width: 200px;" /></a>
+<div class="section" id="welcome-to-pyglow-s-documentation">
+<h1>Welcome to PyGlow’s documentation!<a class="headerlink" href="#welcome-to-pyglow-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>PyGlow is a Python package which attempts to implement Keras like API functionalities on PyTorch backend with functionalities supporting information theoretic methods which are relevant for understanding neural network dynamics. The package is equipped with a number of state-of-the-art algorithms for estimating and calculating various kinds of information theoretic measures and quantities. Along with traditional dependence criterion for random variables like mutual information, PyGlow also have newer dependence criterion like HSIC criterion which have proved to be more robust in terms of ‘Information Bottleneck Theory of Deep Learning’.</p>
+<div class="section" id="what-s-new-with-pyglow">
+<h2>What’s new with PyGlow ?<a class="headerlink" href="#what-s-new-with-pyglow" title="Permalink to this headline">¶</a></h2>
+<p>PyGlow provide support for the following features of the ‘IB theory of Deep Learning’:</p>
+<ul class="simple">
+<li><p>Functionalities for experimental IB-based DNN analysis</p></li>
+<li><p>Test IB-based DNN performance bounds</p></li>
+<li><p>Flexible API structure to test theoretical ideas and hypothesis related to IB-theory or information theory in general</p></li>
+<li><p>IB-based training paradigms for DNN</p></li>
+<li><p>Flexible internal pipeline which allows for the implementation of custom user-defined dependence criterions or IB-based loss functions</p></li>
+</ul>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Let’s see a code snippet which tracks the input-hidden-label segment (called dynamics segment) for each batch of each epoch and calculates the HSIC criterion between each hidden layer, input and label of a dynamics segment which is for each layer of each batch of each epoch. One thing that you will find interesting is the resemblance with Keras code structure of defining the model. PyGlow closely follows the API structure of Keras and provides with an ‘easy to implement’ pipeline so that you can really work on your ideas rather than debugging ;)</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># importing glow modules</span>
+<span class="kn">from</span> <span class="nn">glow.models</span> <span class="kn">import</span> <span class="n">IBSequential</span>
+<span class="kn">from</span> <span class="nn">glow.layers</span> <span class="kn">import</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Conv2d</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">HSICoutput</span>
+<span class="kn">from</span> <span class="nn">glow.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
+<span class="kn">from</span> <span class="nn">glow.information_bottelneck.estimator</span> <span class="kn">import</span> <span class="n">HSIC</span>
+
+<span class="c1"># declaring hyperparameters</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">num_workers</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># load the dataset</span>
+<span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="n">test_loader</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="n">validation_split</span>
+<span class="p">)</span>
+
+<span class="c1"># define the IB model - tracks the information plane coordinates</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">IBSequential</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">gpu</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                 <span class="n">track_dynamics</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">save_dynamics</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Flatten</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.4</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
+
+<span class="c1"># compile the model</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;SGD&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;cross_entropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="c1"># attach evaluator - Tracks the dynamics and calculate coordinates</span>
+<span class="c1"># according to HSIC criterion</span>
+<span class="n">model</span><span class="o">.</span><span class="n">attach_evaluator</span><span class="p">(</span><span class="n">HSIC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># train the model</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>Now for more detailed insight into PyGlow head over to the contents !</p>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#intended-audience">Intended Audience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gettingstarted.html#installing-dependencies">Installing dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gettingstarted.html#installing-pyglow">Installing PyGlow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#running-your-first-code-with-pyglow">Running your first code with PyGlow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingstarted.html#contribute">Contribute</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gettingstarted.html#bug-reporting">Bug reporting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gettingstarted.html#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gettingstarted.html#code-writing">Code writing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gettingstarted.html#development-environment">Development environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gettingstarted.html#code-linting">Code Linting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#module-network">Standard Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#sequential">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#ibsequential">IBSequential</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#module-hsic">‘Models without Back-prop’</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#hsicsequential">HSICSequential</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#module-layer">Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#module-core">Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#module-convolutional">Convolutional</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#module-normalization">Normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#module-pooling">Pooling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#module-hsic_output">HSIC</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#information-bottleneck">Information Bottleneck</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#module-estimator">Estimator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#preprocessing">Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#module-data_generator">Data Loading and Generation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="jupyternotebooks.html">Jupyter Notebooks</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="license.html#contact">Contact</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">PyGlow</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyternotebooks.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="gettingstarted.html" title="next chapter">Getting Started</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Bhavya Bhatt.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

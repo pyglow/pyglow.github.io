@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Getting Started &#8212; PyGlow 0.1.7 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Guide" href="userguide.html" />
+    <link rel="prev" title="Welcome to PyGlow’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Since the success of deep learning, where it outperforms almost every machine learning task including computer vision, speech recognition, natural language processing, representation learning and many more. Even after so many years after it first shone like a charm, there lies many subtle mysterious regarding theoretical aspects of deep learning which revolves around the questions dealing with generalization, memorization, regularization, hidden representations and many more such mind-boggling paradoxes. Many great researchers have put forward their views and perspectives on how to approach towards a theoretical framework for deep learning which has explanations and interpretations of what we observe in practice while training a deep learning model. One of the most promising ideas which is there for quite some time now is the application of information theory in deep learning using which researchers have shown interesting state-of-the-art results comparable to results from standard practices in deep learning. One such idea borrowed from information theory is ‘Information Bottleneck’ principle (IB) proposed by Prof. Naftali Tishby which give some hope for theoretically measure generalization and compression ability of a model. One of the key ideas of IB theory is its ability to define optimal representations even for intermediate hidden layers and this idea of regularizing intermediate representations have got much of the attention from all the researcher in the field. Since then many new measures and robust IB objective functions is proposed, all exploiting the above idea of regularization. PyGlow is the first library of its kind in the sense it provides a complete ecosystem for researchers working in this field by facilitating them with all the information theoretic methods they require while experimenting their ideas and hypothesis based on IB theory.</p>
+</div>
+<div class="section" id="intended-audience">
+<h2>Intended Audience<a class="headerlink" href="#intended-audience" title="Permalink to this headline">¶</a></h2>
+<p>The intended audience for this package is really anyone who is willing to look beyond a traditional way of doing deep learning. The aim is to provide any deep learning enthusiast with a set of tools which she/he can use to open the black box of deep learning. From past two years, information theory have shown to give interesting insights into the theoretical studies of neural network dynamics. But no standard package existed before this which can really fill this gap of standard deep learning and this budding field of information theory in deep learning. There are researchers from all over the world publishing their awesome results in the field and now it’s the perfect time for a library like PyGlow to get introduced itself to the researchers out there. Hence intended audience also include researchers which are or is interested to work in this field and this spirit of offering ease to them in their research work is reflected in the API structure of PyGlow.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installing-dependencies">
+<h3>Installing dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="pytorch">
+<h4>PyTorch<a class="headerlink" href="#pytorch" title="Permalink to this headline">¶</a></h4>
+<p>PyGlow requires PyTorch backend, so to install it first run the following command.</p>
+<p>Now its time to install PyGlow on your system !</p>
+</div>
+</div>
+<div class="section" id="installing-pyglow">
+<h3>Installing PyGlow<a class="headerlink" href="#installing-pyglow" title="Permalink to this headline">¶</a></h3>
+<p>Currently the package is in development phase and is only available on Test PyPI .</p>
+<p>pip install -i <a class="reference external" href="https://test.pypi.org/simple/">https://test.pypi.org/simple/</a> PyGlow</p>
+</div>
+</div>
+<div class="section" id="running-your-first-code-with-pyglow">
+<h2>Running your first code with PyGlow<a class="headerlink" href="#running-your-first-code-with-pyglow" title="Permalink to this headline">¶</a></h2>
+<p>Let’s run your first PyGlow code.
+First verify that it’s installed successfully on your system by running the following command in the interpreter.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glow</span>
+<span class="n">glow</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</td></tr></table></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;0.1.6&#39;</span>
+</pre></div>
+</div>
+<p>Now that you have verified the installation and have tried something yourself, head over to the examples section to make yourself comfortable with coding semantics starting with this example.</p>
+</div>
+<div class="section" id="contribute">
+<h2>Contribute<a class="headerlink" href="#contribute" title="Permalink to this headline">¶</a></h2>
+<p>PyGlow is a community project, hence all contributions are more than
+welcome!</p>
+<div class="section" id="bug-reporting">
+<h3>Bug reporting<a class="headerlink" href="#bug-reporting" title="Permalink to this headline">¶</a></h3>
+<p>Not only things break all the time, but also different people have different
+use cases for the project. If you find anything that doesn’t work as expected
+or have suggestions, please refer to the <a class="reference external" href="https://github.com/spino17/PyGlow/issues">issue tracker</a> on GitHub.</p>
+</div>
+<div class="section" id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
+<p>Documentation can always be improved and made easier to understand for
+newcomers. The docs are stored in text files under the <cite>docs/source</cite>
+directory, so if you think anything can be improved there please edit the
+files and proceed in the same way as with <a class="reference internal" href="#code-writing">code writing</a>.</p>
+<p>The Python classes and methods also feature inline docs: if you detect
+any inconsistency or opportunity for improvement, you can edit those too.</p>
+<p>Besides, the <a class="reference external" href="https://github.com/spino17/PyGlow/wiki">wiki</a> is open for everybody to edit, so feel free to add
+new content.</p>
+<p>To build the docs, you must first create a development environment (see
+below) and then in the <code class="docutils literal notranslate"><span class="pre">docs/</span></code> directory run:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> docs
+$ make html
+</pre></div>
+</div>
+</div></blockquote>
+<p>After this, the new docs will be inside <code class="docutils literal notranslate"><span class="pre">build/html</span></code>. You can open
+them by running an HTTP server:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> build/html
+$ python -m http.server
+Serving HTTP on <span class="m">0</span>.0.0.0 port <span class="m">8000</span> ...
+</pre></div>
+</div>
+</div></blockquote>
+<p>And point your browser to <a class="reference external" href="http://0.0.0.0:8000">http://0.0.0.0:8000</a>.</p>
+</div>
+<div class="section" id="code-writing">
+<h3>Code writing<a class="headerlink" href="#code-writing" title="Permalink to this headline">¶</a></h3>
+<p>Code contributions are welcome! If you are looking for a place to start,
+help us fixing bugs in einsteinpy and check out the <a class="reference external" href="https://github.com/spino17/PyGlow/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22">“easy” tag</a>. Those
+should be easier to fix than the others and require less knowledge about the
+library.</p>
+<p>If you are hesitant on what IDE or editor to use, just choose one that
+you find comfortable and stick to it while you are learning. People have
+strong opinions on which editor is better so I recommend you to ignore
+the crowd for the time being - again, choose one that you like :)</p>
+<p>If you ask me for a recommendation, I would suggest Spyder (good for machine learning)
+or PyCharm (complete IDE, free and gratis, RAM-hungry) or vim (powerful editor, very
+lightweight, steep learning curve). Other people use Spyder, emacs, gedit, Notepad++,
+Sublime, Atom…</p>
+<p>You will also need to understand how git works. git is a decentralized
+version control system that preserves the history of the software, helps
+tracking changes and allows for multiple versions of the code to exist
+at the same time. If you are new to git and version control, I recommend
+following <a class="reference external" href="https://try.github.io/">the Try Git tutorial</a>.</p>
+<p>If you already know how all this works and would like to contribute new
+features then that’s awesome! Before rushing out though please make sure it
+is within the scope of the library so you don’t waste your time -
+<a class="reference external" href="mailto:bhavyabhatt17&#37;&#52;&#48;gmail&#46;com">email</a> us.</p>
+<p>If the feature you suggest happens to be useful and within scope, you will
+probably be advised to create a new <a class="reference external" href="https://github.com/spino17/PyGlow/wiki">wiki</a> page with some information
+about what problem you are trying to solve, how do you plan to do it and
+a sketch or idea of how the API is going to look like. You can go there
+to read other good examples on how to do it. The purpose is to describe
+without too much code what you are trying to accomplish to justify the
+effort and to make it understandable to a broader audience.</p>
+<p>All new features should be thoroughly tested, and in the ideal case the
+coverage rate should increase or stay the same. Automatic services will ensure
+your code works on all the operative systems and package combinations
+PyGlow support - specifically, note that PyGlow is a Python 3 only
+library.</p>
+</div>
+<div class="section" id="development-environment">
+<h3>Development environment<a class="headerlink" href="#development-environment" title="Permalink to this headline">¶</a></h3>
+<p>These are some succint steps to set up a development environment:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://git-scm.com/">Install git</a> on your computer.</p></li>
+<li><p><a class="reference external" href="https://github.com/">Register to GitHub</a>.</p></li>
+<li><p><a class="reference external" href="https://help.github.com/articles/fork-a-repo/">Fork PyGlow</a>.</p></li>
+<li><p><a class="reference external" href="https://help.github.com/articles/cloning-a-repository/">Clone your fork</a>.</p></li>
+<li><p>Install it in development mode using
+<code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--editable</span> <span class="pre">/path/to/einsteinpy/[dev]</span></code> (this means that the
+installed code will change as soon as you change it in the download
+location).</p></li>
+<li><p>Create a new branch.</p></li>
+<li><p>Make changes and commit.</p></li>
+<li><p><a class="reference external" href="https://help.github.com/articles/pushing-to-a-remote/">Push to your fork</a>.</p></li>
+<li><p><a class="reference external" href="https://help.github.com/articles/creating-a-pull-request/">Open a pull request!</a></p></li>
+</ol>
+</div>
+<div class="section" id="code-linting">
+<h3>Code Linting<a class="headerlink" href="#code-linting" title="Permalink to this headline">¶</a></h3>
+<p>To get the quality checks passed, the code should follow some standards listed below:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://black.readthedocs.io/en/stable/">Black</a> for code formatting.</p></li>
+<li><p><a class="reference external" href="https://isort.readthedocs.io/en/latest/">isort</a> for imports sorting.</p></li>
+<li><p><a class="reference external" href="http://mypy-lang.org/">mypy</a> for static type checking.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PyGlow</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#intended-audience">Intended Audience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-dependencies">Installing dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-pyglow">Installing PyGlow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-your-first-code-with-pyglow">Running your first code with PyGlow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contribute">Contribute</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bug-reporting">Bug reporting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code-writing">Code writing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#development-environment">Development environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code-linting">Code Linting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyternotebooks.html">Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">What’s New ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to PyGlow’s documentation!</a></li>
+      <li>Next: <a href="userguide.html" title="next chapter">User Guide</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Bhavya Bhatt.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/gettingstarted.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
