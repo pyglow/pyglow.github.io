@@ -193,498 +193,772 @@
 <div class="section" id="module-network">
 <span id="standard-models"></span><h2>Standard Models<a class="headerlink" href="./userguide.html#module-network" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="network.Network">
-<em class="property">class </em><code class="descclassname">network.</code><code class="descname">Network</code><span class="sig-paren">(</span><em>input_shape</em>, <em>device</em>, <em>gpu</em>, <em>track_dynamics=False</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#network.Network" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for all neural network modules.</p>
-<p>Your network should also subclass this class.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>input_shape</strong> (<em>tuple</em>) – input tensor shape</li>
-<li><strong>device</strong> (<em>torch.device</em><em> or </em><em>int</em>) – <cite>GPU</cite> or <cite>CPU</cite> for training purposes</li>
-<li><strong>gpu</strong> (<em>bool</em>) – true if <cite>GPU</cite> is enabled on the system, false otherwise</li>
-<li><strong>track_dynamics</strong> (<em>bool</em>) – tracks the NN dynamics during training (stores input-output for every intermediate layer)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="attribute">
-<dt id="network.Network.input_shape">
-<code class="descname">input_shape</code><a class="headerlink" href="./userguide.html#network.Network.input_shape" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>tuple</em> – input tensor shape</p>
-</dd></dl>
+    <dt id="network.Network">
+        <em class="property">class </em><code class="sig-prename descclassname">network.</code><code class="sig-name descname">Network</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em>, <em class="sig-param">device</em>, <em class="sig-param">gpu</em>, <em class="sig-param">track_dynamics=False</em><span class="sig-paren">)</span><a class="headerlink" href="#network.Network" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Base class for all neural network modules.</p>
+        <p>Your network should also subclass this class.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>input_shape</strong> (<em>tuple</em>) – input tensor shape</p></li>
+        <li><p><strong>device</strong> (<em>torch.device</em><em> or </em><em>int</em>) – <cite>GPU</cite> or <cite>CPU</cite> for training purposes</p></li>
+        <li><p><strong>gpu</strong> (<em>bool</em>) – true if <cite>GPU</cite> is enabled on the system, false otherwise</p></li>
+        <li><p><strong>track_dynamics</strong> (<em>bool</em>) – tracks the NN dynamics during training (stores input-output for every intermediate layer)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        <dl class="attribute">
+        <dt id="network.Network.input_shape">
+        <code class="sig-name descname">input_shape</code><a class="headerlink" href="#network.Network.input_shape" title="Permalink to this definition">¶</a></dt>
+        <dd><p>input tensor shape</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Type</dt>
+        <dd class="field-odd"><p>tuple</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="attribute">
+        <dt id="network.Network.layer_list">
+        <code class="sig-name descname">layer_list</code><a class="headerlink" href="#network.Network.layer_list" title="Permalink to this definition">¶</a></dt>
+        <dd><p>an iterable of pytorch <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.container.Sequential</span></code> type layers</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Type</dt>
+        <dd class="field-odd"><p>iterable</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="attribute">
+        <dt id="network.Network.num_layers">
+        <code class="sig-name descname">num_layers</code><a class="headerlink" href="#network.Network.num_layers" title="Permalink to this definition">¶</a></dt>
+        <dd><p>number of layers in the model</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Type</dt>
+        <dd class="field-odd"><p>int</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="attribute">
+        <dt id="network.Network.is_gpu">
+        <code class="sig-name descname">is_gpu</code><a class="headerlink" href="#network.Network.is_gpu" title="Permalink to this definition">¶</a></dt>
+        <dd><p>true if <cite>GPU</cite> is enabled on the system, false otherwise</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Type</dt>
+        <dd class="field-odd"><p>bool</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="attribute">
+        <dt id="network.Network.device">
+        <code class="sig-name descname">device</code><a class="headerlink" href="#network.Network.device" title="Permalink to this definition">¶</a></dt>
+        <dd><p><cite>GPU</cite> or <cite>CPU</cite> for training purposes</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Type</dt>
+        <dd class="field-odd"><p>torch.device or int</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="attribute">
+        <dt id="network.Network.track_dynamics">
+        <code class="sig-name descname">track_dynamics</code><a class="headerlink" href="#network.Network.track_dynamics" title="Permalink to this definition">¶</a></dt>
+        <dd><p>tracks the NN dynamics during training (stores input-output for every intermediate layer)</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Type</dt>
+        <dd class="field-odd"><p>bool</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="network.Network.add">
+        <code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">layer_obj</em><span class="sig-paren">)</span><a class="headerlink" href="#network.Network.add" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Adds specified (by the <cite>layer_obj</cite> argument) layer to the model. It
+        automatically handles the input shape from the previous layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><p><strong>layer_obj</strong> (<em>glow.Layer</em>) – object of specific layer to be added</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="network.Network.attach_evaluator">
+        <code class="sig-name descname">attach_evaluator</code><span class="sig-paren">(</span><em class="sig-param">evaluator_obj</em><span class="sig-paren">)</span><a class="headerlink" href="#network.Network.attach_evaluator" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Attaches an evaluator with the model which will get evaluated at every
+        pass of batch and obtain information plane coordinates according to
+        defined criterion in the ‘evaluator_obj’.</p>
+        <p>It appends the ‘evaluator_obj’
+        to the list ‘evaluator_list’ which consists all the attached evaluators
+        with the model.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><p><strong>evaluator_obj</strong> (<em>glow.information_bottleneck.Estimator</em>) – evaluator object with has criterion defined which will get evaluated for the dynamics of the training process</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="network.Network.compile">
+        <code class="sig-name descname">compile</code><span class="sig-paren">(</span><em class="sig-param">optimizer='SGD'</em>, <em class="sig-param">loss='cross_entropy'</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">learning_rate=0.001</em>, <em class="sig-param">momentum=0.95</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#network.Network.compile" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Compile the model with attaching optimizer and loss function to the
+        model.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>optimizer</strong> (<em>torch.optim.Optimizer</em>) – optimizer to be used during training process</p></li>
+        <li><p><strong>loss</strong> (<em>loss</em>) – loss function for back-propagation</p></li>
+        <li><p><strong>metrics</strong> (<em>list</em>) – list of all performance metric which needs to be evaluated in validation pass</p></li>
+        <li><p><strong>learning_rate</strong> (<em>float</em><em>, </em><em>optional</em>) – learning rate for gradient descent step (default: 0.001)</p></li>
+        <li><p><strong>momentum</strong> (<em>float</em><em>, </em><em>optional</em>) – momentum for different variants of optimizers (default: 0.95)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="network.Network.fit">
+        <code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">x_train</em>, <em class="sig-param">y_train</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">num_epochs</em>, <em class="sig-param">validation_split=0.2</em>, <em class="sig-param">show_plot=False</em><span class="sig-paren">)</span><a class="headerlink" href="#network.Network.fit" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Fits the dataset passed as numpy array (Keras like pipeline) in the arguments.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>x_train</strong> (<em>numpy.ndarray</em>) – training input dataset</p></li>
+        <li><p><strong>y_train</strong> (<em>numpy.ndarray</em>) – training ground-truth labels</p></li>
+        <li><p><strong>batch_size</strong> (<em>int</em>) – batch size of one batch</p></li>
+        <li><p><strong>num_epochs</strong> (<em>int</em>) – number of epochs for training</p></li>
+        <li><p><strong>validation_split</strong> (<em>float</em><em>, </em><em>optional</em>) – proportion of the total dataset to be used for validation (default: 0.2)</p></li>
+        <li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true plots the training loss (red), validation loss (blue) vs epochs (default: True)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="network.Network.fit_generator">
+        <code class="sig-name descname">fit_generator</code><span class="sig-paren">(</span><em class="sig-param">train_loader</em>, <em class="sig-param">val_loader</em>, <em class="sig-param">num_epochs</em>, <em class="sig-param">show_plot=False</em><span class="sig-paren">)</span><a class="headerlink" href="#network.Network.fit_generator" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Fits the dataset by taking data-loader as argument.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>num_epochs</strong> (<em>int</em>) – number of epochs for training</p></li>
+        <li><p><strong>train_loader</strong> (<em>torch.utils.data.DataLoader</em>) – training dataset (with already processed batches)</p></li>
+        <li><p><strong>val_loader</strong> (<em>torch.utils.data.DataLoader</em>) – validation dataset (with already processed batches)</p></li>
+        <li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true plots the training loss (red), validation loss (blue) vs epochs (default: True)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="network.Network.forward">
+        <code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#network.Network.forward" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Method for defining forward pass through the model.</p>
+        <p>This method needs to be overridden by your implementation contain logic
+        of the forward pass through your model.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – input tensor to the model</p>
+        </dd>
+        <dt class="field-even">Returns</dt>
+        <dd class="field-even"><p><dl class="simple">
+        <dt>tuple containing:</dt><dd><p>(torch.Tensor): output tensor of the network
+        (iterable): list of hidden layer outputs for dynamics tracking purposes</p>
+        </dd>
+        </dl>
+        </p>
+        </dd>
+        <dt class="field-odd">Return type</dt>
+        <dd class="field-odd"><p>(tuple)</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </dd></dl>
+        
+        <div class="section" id="sequential">
+        <h3>Sequential<a class="headerlink" href="#sequential" title="Permalink to this headline">¶</a></h3>
+        <dl class="class">
+        <dt id="network.Sequential">
+        <em class="property">class </em><code class="sig-prename descclassname">network.</code><code class="sig-name descname">Sequential</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em>, <em class="sig-param">gpu=False</em><span class="sig-paren">)</span><a class="headerlink" href="#network.Sequential" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Keras like Sequential model.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>input_shape</strong> (<em>tuple</em>) – input tensor shape</p></li>
+        <li><p><strong>gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true then PyGlow will attempt to use <cite>GPU</cite>, for false <cite>CPU</cite> will be used (default: False)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </div>
+        <div class="section" id="ibsequential">
+        <h3>IBSequential<a class="headerlink" href="#ibsequential" title="Permalink to this headline">¶</a></h3>
+        <dl class="class">
+        <dt id="network.IBSequential">
+        <em class="property">class </em><code class="sig-prename descclassname">network.</code><code class="sig-name descname">IBSequential</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em>, <em class="sig-param">gpu=False</em>, <em class="sig-param">track_dynamics=False</em>, <em class="sig-param">save_dynamics=False</em><span class="sig-paren">)</span><a class="headerlink" href="#network.IBSequential" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Keras like Sequential model with extended more sophisticated Information
+        Bottleneck functionalities for analysing the dynamics of training.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>input_shape</strong> (<em>tuple</em>) – input tensor shape</p></li>
+        <li><p><strong>gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true then PyGlow will attempt to use <cite>GPU</cite>, for false <cite>CPU</cite> will be used (default: False)</p></li>
+        <li><p><strong>track_dynamics</strong> (<em>bool</em>) – if true then will track the input-hidden-output dynamics segment and will allow evaluator to attach to the model, for false no track for dynamics is kept</p></li>
+        <li><p><strong>save_dynamics</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true then saves the whole training process dynamics into a distributed file (for efficiency)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </div>
+        </div>
+        <div class="section" id="module-hsic">
+        <span id="models-without-back-prop"></span><h2>‘Models without Back-prop’<a class="headerlink" href="#module-hsic" title="Permalink to this headline">¶</a></h2>
+        <dl class="class">
+        <dt id="hsic.HSIC">
+        <em class="property">class </em><code class="sig-prename descclassname">hsic.</code><code class="sig-name descname">HSIC</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em>, <em class="sig-param">device</em>, <em class="sig-param">gpu</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hsic.HSIC" title="Permalink to this definition">¶</a></dt>
+        <dd><p>The HSIC Bottelneck: Deep Learning without backpropagation.</p>
+        <p>Base class for all HSIC network.</p>
+        <p>Your HSIC network should also subclass this class.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>input_shape</strong> (<em>tuple</em>) – input tensor shape</p></li>
+        <li><p><strong>device</strong> (<em>torch.device</em><em>, </em><em>optional</em>) – </p></li>
+        <li><p><strong>gpu</strong> (<em>bool</em>) – true if <cite>GPU</cite> is enabled on the system, false otherwise</p></li>
+        </ul>
+        </dd>
+        </dl>
+        <dl class="method">
+        <dt id="hsic.HSIC.add">
+        <code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">layer_obj</em>, <em class="sig-param">loss_criterion=None</em>, <em class="sig-param">regularize_coeff=0</em><span class="sig-paren">)</span><a class="headerlink" href="#hsic.HSIC.add" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Adds specified layer and loss criterion to the model which will be used
+        for measuring objective between layer’s current representation and
+        optimal representation (representation with minimum IB-based objective).</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>layer_obj</strong> (<em>glow.Layer</em>) – object of specific layer to be added</p></li>
+        <li><p><strong>loss_criterion</strong> (<em>glow.information_bottleneck.Estimator</em>) – loss function for the layer which is added</p></li>
+        <li><p><strong>regularize_coeff</strong> (<em>float</em>) – regularization coefficient between generalization and compression of IB type objective</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="hsic.HSIC.compile">
+        <code class="sig-name descname">compile</code><span class="sig-paren">(</span><em class="sig-param">loss_criterion</em>, <em class="sig-param">optimizer='SGD'</em>, <em class="sig-param">regularize_coeff=100</em>, <em class="sig-param">learning_rate=0.001</em>, <em class="sig-param">momentum=0.95</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hsic.HSIC.compile" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Compile the HSIC network with loss criterion (criterion objective used
+        as loss function for intermediate representations).</p>
+        <p>All the layers which did not have any criterion passed as argument at
+        the time of ‘.add’ of layer automatically takes this loss criterion.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>loss_criterion</strong> (<em>glow.information_bottleneck.Estimator</em>) – criterion function which is an instance of <cite>glow.information_bottleneck.Estimator</cite></p></li>
+        <li><p><strong>optimizer</strong> (<em>torch.optim.Optimizer</em>) – optimizer to be used during training process for all the layers</p></li>
+        <li><p><strong>regularize_coeff</strong> (<em>float</em>) – trade-off parameter between generalization and compression according to IB-based theory</p></li>
+        <li><p><strong>learning_rate</strong> (<em>float</em><em>, </em><em>optional</em>) – learning rate for gradient descent step (default: 0.001)</p></li>
+        <li><p><strong>momentum</strong> (<em>float</em><em>, </em><em>optional</em>) – momentum for different variants of optimizers (default: 0.95)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="hsic.HSIC.forward">
+        <code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#hsic.HSIC.forward" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Method for defining forward pass through the model.</p>
+        <p>This method needs to be overridden by your implementation which contains
+        the logic of the forward pass through your model.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – input tensor to the model</p>
+        </dd>
+        <dt class="field-even">Returns</dt>
+        <dd class="field-even"><p>list of hidden layer outputs (objects of type <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code>) which are detached from their previous layer’s gradients</p>
+        </dd>
+        <dt class="field-odd">Return type</dt>
+        <dd class="field-odd"><p>(iterable)</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="hsic.HSIC.pre_training_loop">
+        <code class="sig-name descname">pre_training_loop</code><span class="sig-paren">(</span><em class="sig-param">num_epochs</em>, <em class="sig-param">train_loader</em>, <em class="sig-param">val_loader</em><span class="sig-paren">)</span><a class="headerlink" href="#hsic.HSIC.pre_training_loop" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Pre training phase in which hidden representations are learned using
+        HSIC training paradigm.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>num_epochs</strong> (<em>int</em>) – number of epochs for pre-training phase</p></li>
+        <li><p><strong>train_loader</strong> (<em>torch.utils.data.DataLoader</em>) – training dataset (with already processed batches)</p></li>
+        <li><p><strong>val_loader</strong> (<em>torch.utils.data.DataLoader</em>) – validation dataset (with already processed batches)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="hsic.HSIC.sequential_forward">
+        <code class="sig-name descname">sequential_forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#hsic.HSIC.sequential_forward" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Sequentially calculate the output taking HSIC network as sequential
+        feedforward neural network and is equivalent to forward pass in standard
+        models.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – input tensor to the network</p>
+        </dd>
+        <dt class="field-even">Returns</dt>
+        <dd class="field-even"><p>output of the sequential feedforward network</p>
+        </dd>
+        <dt class="field-odd">Return type</dt>
+        <dd class="field-odd"><p>(torch.Tensor)</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </dd></dl>
+        
+        <div class="section" id="hsicsequential">
+        <h3>HSICSequential<a class="headerlink" href="#hsicsequential" title="Permalink to this headline">¶</a></h3>
+        <dl class="class">
+        <dt id="hsic.HSICSequential">
+        <em class="property">class </em><code class="sig-prename descclassname">hsic.</code><code class="sig-name descname">HSICSequential</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em>, <em class="sig-param">gpu=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hsic.HSICSequential" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Base implementation for HSIC networks.</p>
+        <p>This class forms instances for multi-model sigma network as given in the paper
+        <a class="reference external" href="https://arxiv.org/abs/1908.01580">https://arxiv.org/abs/1908.01580</a> .</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>input_shape</strong> (<em>tuple</em>) – input tensor shape</p></li>
+        <li><p><strong>gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true then PyGlow will attempt to use <cite>GPU</cite>, for false <cite>CPU</cite> will be used (default: False)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </div>
+        </div>
+        <div class="section" id="module-layer">
+        <span id="layers"></span><h2>Layers<a class="headerlink" href="#module-layer" title="Permalink to this headline">¶</a></h2>
+        <dl class="class">
+        <dt id="layer.Layer">
+        <em class="property">class </em><code class="sig-prename descclassname">layer.</code><code class="sig-name descname">Layer</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#layer.Layer" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Base class for all layer modules.</p>
+        <p>Your layer should also subclass this class.</p>
+        <dl class="method">
+        <dt id="layer.Layer.forward">
+        <code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#layer.Layer.forward" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Forward method overrides PyTorch forward method and contains the logic
+        for the forward pass through the custom layer defined.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – input tensor to the layer</p>
+        </dd>
+        <dt class="field-even">Returns</dt>
+        <dd class="field-even"><p>output tensor of the layer</p>
+        </dd>
+        <dt class="field-odd">Return type</dt>
+        <dd class="field-odd"><p>y (torch.Tensor)</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="layer.Layer.set_input">
+        <code class="sig-name descname">set_input</code><span class="sig-paren">(</span><em class="sig-param">input_shape</em><span class="sig-paren">)</span><a class="headerlink" href="#layer.Layer.set_input" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Takes input_shape and demands user to define a variable self.output_shape
+        which stores the output shape of the custom layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><p><strong>input_shape</strong> (<em>tuple</em>) – input shape of the tensor which the layer expects to receive</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </dd></dl>
+        
+        <div class="section" id="module-core">
+        <span id="core"></span><h3>Core<a class="headerlink" href="#module-core" title="Permalink to this headline">¶</a></h3>
+        <dl class="class">
+        <dt id="core.Dense">
+        <em class="property">class </em><code class="sig-prename descclassname">core.</code><code class="sig-name descname">Dense</code><span class="sig-paren">(</span><em class="sig-param">output_dim</em>, <em class="sig-param">activation=None</em><span class="sig-paren">)</span><a class="headerlink" href="#core.Dense" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">glow.layer.Layer</span></code></p>
+        <p>Class for full connected dense layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>output_dim</strong> (<em>int</em>) – output dimension of the dense layer</p></li>
+        <li><p><strong>activation</strong> (<em>str</em>) – activation function to be used for the layer (default: None)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="class">
+        <dt id="core.Dropout">
+        <em class="property">class </em><code class="sig-prename descclassname">core.</code><code class="sig-name descname">Dropout</code><span class="sig-paren">(</span><em class="sig-param">prob</em><span class="sig-paren">)</span><a class="headerlink" href="#core.Dropout" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">glow.layer.Layer</span></code></p>
+        <p>Class for dropout layer - regularization using noise stablity of output.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><p><strong>prob</strong> (<em>float</em>) – probability with which neurons in the previous layer is dropped</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="class">
+        <dt id="core.Flatten">
+        <em class="property">class </em><code class="sig-prename descclassname">core.</code><code class="sig-name descname">Flatten</code><a class="headerlink" href="#core.Flatten" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">glow.layer.Layer</span></code></p>
+        <p>Class for flattening the input shape.</p>
+        </dd></dl>
+        
+        </div>
+        <div class="section" id="module-convolutional">
+        <span id="convolutional"></span><h3>Convolutional<a class="headerlink" href="#module-convolutional" title="Permalink to this headline">¶</a></h3>
+        <dl class="class">
+        <dt id="convolutional.Conv1d">
+        <em class="property">class </em><code class="sig-prename descclassname">convolutional.</code><code class="sig-name descname">Conv1d</code><span class="sig-paren">(</span><em class="sig-param">filters</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">activation=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#convolutional.Conv1d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">convolutional._Conv</span></code></p>
+        <p>Convolutional layer of rank 1.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>filters</strong> (<em>int</em>) – number of filters for the layer</p></li>
+        <li><p><strong>kernel_size</strong> (<em>int</em>) – size of kernel to be used for convolutional operation</p></li>
+        <li><p><strong>stride</strong> (<em>int</em>) – stride for the kernel in convolutional operations</p></li>
+        <li><p><strong>padding</strong> (<em>int</em><em>, </em><em>optional</em>) – padding for the image to handle edges while convoluting (default: 0)</p></li>
+        <li><p><strong>dilation</strong> (<em>int</em><em>, </em><em>optional</em>) – dilation for the convolutional operation (default: 1)</p></li>
+        <li><p><strong>activation</strong> (<em>str</em>) – activation function to be used for the layer (default: None)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="class">
+        <dt id="convolutional.Conv2d">
+        <em class="property">class </em><code class="sig-prename descclassname">convolutional.</code><code class="sig-name descname">Conv2d</code><span class="sig-paren">(</span><em class="sig-param">filters</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">activation=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#convolutional.Conv2d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">convolutional._Conv</span></code></p>
+        <p>Convolutional layer of rank 2.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>filters</strong> (<em>int</em>) – number of filters for the layer</p></li>
+        <li><p><strong>kernel_size</strong> (<em>int</em>) – size of kernel to be used for convolutional operation</p></li>
+        <li><p><strong>stride</strong> (<em>int</em>) – stride for the kernel in convolutional operations</p></li>
+        <li><p><strong>padding</strong> (<em>int</em><em>, </em><em>optional</em>) – padding for the image to handle edges while convoluting (default: 0)</p></li>
+        <li><p><strong>dilation</strong> (<em>int</em><em>, </em><em>optional</em>) – dilation for the convolutional operation (default: 1)</p></li>
+        <li><p><strong>activation</strong> (<em>str</em>) – activation function to be used for the layer (default: None)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="class">
+        <dt id="convolutional.Conv3d">
+        <em class="property">class </em><code class="sig-prename descclassname">convolutional.</code><code class="sig-name descname">Conv3d</code><span class="sig-paren">(</span><em class="sig-param">filters</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">activation=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#convolutional.Conv3d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">convolutional._Conv</span></code></p>
+        <p>Convolutional layer of rank 3.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>filters</strong> (<em>int</em>) – number of filters for the layer</p></li>
+        <li><p><strong>kernel_size</strong> (<em>int</em>) – size of kernel to be used for convolutional operation</p></li>
+        <li><p><strong>stride</strong> (<em>int</em>) – stride for the kernel in convolutional operations</p></li>
+        <li><p><strong>padding</strong> (<em>int</em><em>, </em><em>optional</em>) – padding for the image to handle edges while convoluting (default: 0)</p></li>
+        <li><p><strong>dilation</strong> (<em>int</em><em>, </em><em>optional</em>) – dilation for the convolutional operation (default: 1)</p></li>
+        <li><p><strong>activation</strong> (<em>str</em>) – activation function to be used for the layer (default: None)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </div>
+        <div class="section" id="module-normalization">
+        <span id="normalization"></span><h3>Normalization<a class="headerlink" href="#module-normalization" title="Permalink to this headline">¶</a></h3>
+        <dl class="class">
+        <dt id="normalization.BatchNorm1d">
+        <em class="property">class </em><code class="sig-prename descclassname">normalization.</code><code class="sig-name descname">BatchNorm1d</code><span class="sig-paren">(</span><em class="sig-param">eps=1e-05</em>, <em class="sig-param">momentum=0.1</em><span class="sig-paren">)</span><a class="headerlink" href="#normalization.BatchNorm1d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">normalization._BatchNorm</span></code></p>
+        <p>1-D batch normalization layer.</p>
+        <p>See <a class="reference external" href="https://arxiv.org/abs/1502.03167">https://arxiv.org/abs/1502.03167</a> for more information on batch
+        normalization.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>eps</strong> (<em>float</em>) – a value added to the denominator for numerical stability (default: 1e-5)</p></li>
+        <li><p><strong>momentum</strong> (<em>float</em>) – the value used for the running_mean and running_var computation. Can be set to None for cumulative moving average (i.e. simple average) (default: 0.1)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="class">
+        <dt id="normalization.BatchNorm2d">
+        <em class="property">class </em><code class="sig-prename descclassname">normalization.</code><code class="sig-name descname">BatchNorm2d</code><span class="sig-paren">(</span><em class="sig-param">eps=1e-05</em>, <em class="sig-param">momentum=0.1</em><span class="sig-paren">)</span><a class="headerlink" href="#normalization.BatchNorm2d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">normalization._BatchNorm</span></code></p>
+        <p>2-D batch normalization layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>eps</strong> (<em>float</em>) – a value added to the denominator for numerical stability (default: 1e-5)</p></li>
+        <li><p><strong>momentum</strong> (<em>float</em>) – the value used for the running_mean and running_var computation. Can be set to None for cumulative moving average (i.e. simple average) (default: 0.1)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="class">
+        <dt id="normalization.BatchNorm3d">
+        <em class="property">class </em><code class="sig-prename descclassname">normalization.</code><code class="sig-name descname">BatchNorm3d</code><span class="sig-paren">(</span><em class="sig-param">eps=1e-05</em>, <em class="sig-param">momentum=0.1</em><span class="sig-paren">)</span><a class="headerlink" href="#normalization.BatchNorm3d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">normalization._BatchNorm</span></code></p>
+        <p>3-D batch normalization layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>eps</strong> (<em>float</em>) – a value added to the denominator for numerical stability (default: 1e-5)</p></li>
+        <li><p><strong>momentum</strong> (<em>float</em>) – the value used for the running_mean and running_var computation. Can be set to None for cumulative moving average (i.e. simple average) (default: 0.1)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </div>
+        <div class="section" id="module-pooling">
+        <span id="pooling"></span><h3>Pooling<a class="headerlink" href="#module-pooling" title="Permalink to this headline">¶</a></h3>
+        <div class="section" id="d">
+        <h4>1-D<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h4>
+        <dl class="class">
+        <dt id="pooling.MaxPool1d">
+        <em class="property">class </em><code class="sig-prename descclassname">pooling.</code><code class="sig-name descname">MaxPool1d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size</em>, <em class="sig-param">stride</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pooling.MaxPool1d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pooling._Pooling1d</span></code></p>
+        <p>1-D max pooling layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>kernel_size</strong> (<em>int</em>) – size of kernel to be used for pooling operation</p></li>
+        <li><p><strong>stride</strong> (<em>int</em>) – stride for the kernel in pooling operations</p></li>
+        <li><p><strong>padding</strong> (<em>int</em><em>, </em><em>optional</em>) – padding for the image to handle edges while pooling (default: 0)</p></li>
+        <li><p><strong>dilation</strong> (<em>int</em><em>, </em><em>optional</em>) – dilation for the pooling operation (default: 1)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="class">
+        <dt id="pooling.AvgPool1d">
+        <em class="property">class </em><code class="sig-prename descclassname">pooling.</code><code class="sig-name descname">AvgPool1d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size</em>, <em class="sig-param">stride</em>, <em class="sig-param">padding=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pooling.AvgPool1d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pooling._Pooling1d</span></code></p>
+        <p>1-D average pooling layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>kernel_size</strong> (<em>int</em>) – size of kernel to be used for pooling operation</p></li>
+        <li><p><strong>stride</strong> (<em>int</em>) – stride for the kernel in pooling operations</p></li>
+        <li><p><strong>padding</strong> (<em>int</em><em>, </em><em>optional</em>) – padding for the image to handle edges while pooling (default: 0)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </div>
+        <div class="section" id="id1">
+        <h4>2-D<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+        <dl class="class">
+        <dt id="pooling.MaxPool2d">
+        <em class="property">class </em><code class="sig-prename descclassname">pooling.</code><code class="sig-name descname">MaxPool2d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size</em>, <em class="sig-param">stride</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pooling.MaxPool2d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pooling._Pooling2d</span></code></p>
+        <p>2-D max pooling layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>kernel_size</strong> (<em>int</em>) – size of kernel to be used for pooling operation</p></li>
+        <li><p><strong>stride</strong> (<em>int</em>) – stride for the kernel in pooling operations</p></li>
+        <li><p><strong>padding</strong> (<em>int</em><em>, </em><em>optional</em>) – padding for the image to handle edges while pooling (default: 0)</p></li>
+        <li><p><strong>dilation</strong> (<em>int</em><em>, </em><em>optional</em>) – dilation for the pooling operation (default: 1)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="class">
+        <dt id="pooling.AvgPool2d">
+        <em class="property">class </em><code class="sig-prename descclassname">pooling.</code><code class="sig-name descname">AvgPool2d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size</em>, <em class="sig-param">stride</em>, <em class="sig-param">padding=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pooling.AvgPool2d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pooling._Pooling2d</span></code></p>
+        <p>2-D average pooling layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>kernel_size</strong> (<em>int</em>) – size of kernel to be used for pooling operation</p></li>
+        <li><p><strong>stride</strong> (<em>int</em>) – stride for the kernel in pooling operations</p></li>
+        <li><p><strong>padding</strong> (<em>int</em><em>, </em><em>optional</em>) – padding for the image to handle edges while pooling (default: 0)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </div>
+        <div class="section" id="id2">
+        <h4>3-D<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+        <dl class="class">
+        <dt id="pooling.MaxPool3d">
+        <em class="property">class </em><code class="sig-prename descclassname">pooling.</code><code class="sig-name descname">MaxPool3d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size</em>, <em class="sig-param">stride</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pooling.MaxPool3d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pooling._Pooling3d</span></code></p>
+        <p>3-D max pooling layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>kernel_size</strong> (<em>int</em>) – size of kernel to be used for pooling operation</p></li>
+        <li><p><strong>stride</strong> (<em>int</em>) – stride for the kernel in pooling operations</p></li>
+        <li><p><strong>padding</strong> (<em>int</em><em>, </em><em>optional</em>) – padding for the image to handle edges while pooling (default: 0)</p></li>
+        <li><p><strong>dilation</strong> (<em>int</em><em>, </em><em>optional</em>) – dilation for the pooling operation (default: 1)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="class">
+        <dt id="pooling.AvgPool3d">
+        <em class="property">class </em><code class="sig-prename descclassname">pooling.</code><code class="sig-name descname">AvgPool3d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size</em>, <em class="sig-param">stride</em>, <em class="sig-param">padding=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pooling.AvgPool3d" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pooling._Pooling3d</span></code></p>
+        <p>3-D average pooling layer.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>kernel_size</strong> (<em>int</em>) – size of kernel to be used for pooling operation</p></li>
+        <li><p><strong>stride</strong> (<em>int</em>) – stride for the kernel in pooling operations</p></li>
+        <li><p><strong>padding</strong> (<em>int</em><em>, </em><em>optional</em>) – padding for the image to handle edges while pooling (default: 0)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </div>
+        </div>
+        <div class="section" id="module-hsic_output">
+        <span id="hsic"></span><h3>HSIC<a class="headerlink" href="#module-hsic_output" title="Permalink to this headline">¶</a></h3>
+        <dl class="class">
+        <dt id="hsic_output.HSICoutput">
+        <em class="property">class </em><code class="sig-prename descclassname">hsic_output.</code><code class="sig-name descname">HSICoutput</code><span class="sig-paren">(</span><em class="sig-param">output_dim</em>, <em class="sig-param">activation='softmax'</em><span class="sig-paren">)</span><a class="headerlink" href="#hsic_output.HSICoutput" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">glow.layers.core.Dense</span></code></p>
+        <p>Class for HSIC sigma network output layer. This class extends functionalities
+        of <code class="xref py py-class docutils literal notranslate"><span class="pre">glow.layers.Dense</span></code> with more robust features to serve for
+        HSIC sigma network purposes.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>output_dim</strong> (<em>int</em>) – output dimension of the HSIC output layer used after pre-training phase</p></li>
+        <li><p><strong>activation</strong> (<em>str</em><em>, </em><em>optional</em>) – activation function to be used for the layer (default: softmax)</p></li>
+        </ul>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </div>
+        </div>
+        <div class="section" id="information-bottleneck">
+        <h2>Information Bottleneck<a class="headerlink" href="#information-bottleneck" title="Permalink to this headline">¶</a></h2>
+        <div class="section" id="module-estimator">
+        <span id="estimator"></span><h3>Estimator<a class="headerlink" href="#module-estimator" title="Permalink to this headline">¶</a></h3>
+        <dl class="class">
+        <dt id="estimator.Estimator">
+        <em class="property">class </em><code class="sig-prename descclassname">estimator.</code><code class="sig-name descname">Estimator</code><span class="sig-paren">(</span><em class="sig-param">gpu</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#estimator.Estimator" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Base class for all the estimator modules.</p>
+        <p>Your estimator should also subclass this class.</p>
+        <p>This Class is for implementing functionalities to estimate different dependence
+        criterion in information theory like mutual information etc. These methods
+        are further used in analysing training dyanmics of different architechures.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>gpu</strong> (<em>bool</em>) – if true then all the computation is carried on <cite>GPU</cite> else on <cite>CPU</cite></p></li>
+        <li><p><strong>**kwargs</strong> – the keyword that stores parameters for the estimators</p></li>
+        </ul>
+        </dd>
+        </dl>
+        <dl class="method">
+        <dt id="estimator.Estimator.criterion">
+        <code class="sig-name descname">criterion</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#estimator.Estimator.criterion" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Defines the criterion of the estimator for example EDGE algorithm have
+        mutual information as its criterion. Generally criterion is some kind
+        of dependence or independence measure between <cite>x</cite> and <cite>y</cite>. In the context
+        of information theory most widely used criterion is mutual information
+        between the two arguments.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>x</strong> (<em>torch.Tensor</em>) – first random variable</p></li>
+        <li><p><strong>y</strong> (<em>torch.Tensor</em>) – second random variable</p></li>
+        </ul>
+        </dd>
+        <dt class="field-even">Returns</dt>
+        <dd class="field-even"><p>calculated criterion of the two random variables ‘x’ and ‘y’</p>
+        </dd>
+        <dt class="field-odd">Return type</dt>
+        <dd class="field-odd"><p>(torch.Tensor)</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        <dl class="method">
+        <dt id="estimator.Estimator.eval_dynamics_segment">
+        <code class="sig-name descname">eval_dynamics_segment</code><span class="sig-paren">(</span><em class="sig-param">dynamics_segment</em><span class="sig-paren">)</span><a class="headerlink" href="#estimator.Estimator.eval_dynamics_segment" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Process smallest segment of dynamics and calculate coordinates using the
+        defined criterion.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><p><strong>dynamics_segment</strong> (<em>iterable</em>) – smallest segment of the dynamics of a batch containing input, hidden layer output and label in form of <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code> objects</p>
+        </dd>
+        <dt class="field-even">Returns</dt>
+        <dd class="field-even"><p>list of calculated coordinates according to the criterion with length equal to ‘len(dynamics_segment)-2’</p>
+        </dd>
+        <dt class="field-odd">Return type</dt>
+        <dd class="field-odd"><p>(iterable)</p>
+        </dd>
+        </dl>
+        </dd></dl>
+        
+        </dd></dl>
+        
+        <dl class="class">
+        <dt id="estimator.HSIC">
+        <em class="property">class </em><code class="sig-prename descclassname">estimator.</code><code class="sig-name descname">HSIC</code><span class="sig-paren">(</span><em class="sig-param">kernel</em>, <em class="sig-param">gpu=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#estimator.HSIC" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Class for estimating Hilbert-Schmidt Independence Criterion as done in
+        paper “The HSIC Bottleneck: Deep Learning without Back-Propotion”.</p>
+        <dl class="field-list simple">
+        <dt class="field-odd">Parameters</dt>
+        <dd class="field-odd"><ul class="simple">
+        <li><p><strong>kernel</strong> (<em>str</em>) – kernel which is used for calculating K matrix in HSIC criterion</p></li>
+        <li><p><strong>gpu</strong> (<em>bool</em>) – if true then all the computation is carried on <cite>GPU</cite> else on <cite>CPU</cite></p></li>
+        <li><p><strong>**kwargs</strong> – the keyword that stores parameters for HSIC criterion</p></li>
+        </ul>
+        </dd>
+        </dl>
+        <dl class="method">
+        <dt id="estimator.HSIC.criterion">
+        <code class="sig-name descname">criterion</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="headerlink" href="#estimator.HSIC.criterion" title="Permalink to this definition">¶</a></dt>
+        <dd><p>Defines the HSIC criterion.</p>
+        </dd></dl>
+        
+        </dd></dl>
+        
+        </div>
+        </div>
+        <div class="section" id="preprocessing">
+        <h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
+        
 
-<dl class="attribute">
-<dt id="network.Network.layer_list">
-<code class="descname">layer_list</code><a class="headerlink" href="./userguide.html#network.Network.layer_list" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>iterable</em> – an iterable of pytorch <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.container.Sequential</span></code> type layers</p>
-</dd></dl>
 
-<dl class="attribute">
-<dt id="network.Network.num_layers">
-<code class="descname">num_layers</code><a class="headerlink" href="./userguide.html#network.Network.num_layers" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> – number of layers in the model</p>
-</dd></dl>
 
-<dl class="attribute">
-<dt id="network.Network.is_gpu">
-<code class="descname">is_gpu</code><a class="headerlink" href="./userguide.html#network.Network.is_gpu" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>bool</em> – true if <cite>GPU</cite> is enabled on the system, false otherwise</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="network.Network.device">
-<code class="descname">device</code><a class="headerlink" href="./userguide.html#network.Network.device" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>torch.device or int</em> – <cite>GPU</cite> or <cite>CPU</cite> for training purposes</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="network.Network.track_dynamics">
-<code class="descname">track_dynamics</code><a class="headerlink" href="./userguide.html#network.Network.track_dynamics" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>bool</em> – tracks the NN dynamics during training (stores input-output for every intermediate layer)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.Network.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>layer_obj</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#network.Network.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds specified (by the <cite>layer_obj</cite> argument) layer to the model. It
-automatically handles the input shape from the previous layer.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layer_obj</strong> (<em>glow.Layer</em>) – object of specific layer to be added</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.Network.attach_evaluator">
-<code class="descname">attach_evaluator</code><span class="sig-paren">(</span><em>evaluator_obj</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#network.Network.attach_evaluator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Attaches an evaluator with the model which will get evaluated at every
-pass of batch and obtain information plane coordinates according to
-defined criterion in the ‘evaluator_obj’.</p>
-<p>It appends the ‘evaluator_obj’
-to the list ‘evaluator_list’ which consists all the attached evaluators
-with the model.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>evaluator_obj</strong> (<em>glow.information_bottleneck.Estimator</em>) – evaluator object with has criterion defined which will get evaluated for the dynamics of the training process</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.Network.compile">
-<code class="descname">compile</code><span class="sig-paren">(</span><em>optimizer='SGD'</em>, <em>loss='cross_entropy'</em>, <em>metrics=[]</em>, <em>learning_rate=0.001</em>, <em>momentum=0.95</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#network.Network.compile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compile the model with attaching optimizer and loss function to the
-model.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>optimizer</strong> (<em>torch.optim.Optimizer</em>) – optimizer to be used during training process</li>
-<li><strong>loss</strong> (<em>loss</em>) – loss function for back-propagation</li>
-<li><strong>metrics</strong> (<em>list</em>) – list of all performance metric which needs to be evaluated in validation pass</li>
-<li><strong>learning_rate</strong> (<em>float</em><em>, </em><em>optional</em>) – learning rate for gradient descent step (default: 0.001)</li>
-<li><strong>momentum</strong> (<em>float</em><em>, </em><em>optional</em>) – momentum for different variants of optimizers (default: 0.95)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.Network.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>x_train</em>, <em>y_train</em>, <em>batch_size</em>, <em>num_epochs</em>, <em>validation_split=0.2</em>, <em>show_plot=False</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#network.Network.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fits the dataset passed as numpy array (Keras like pipeline) in the arguments.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>x_train</strong> (<em>numpy.ndarray</em>) – training input dataset</li>
-<li><strong>y_train</strong> (<em>numpy.ndarray</em>) – training ground-truth labels</li>
-<li><strong>batch_size</strong> (<em>int</em>) – batch size of one batch</li>
-<li><strong>num_epochs</strong> (<em>int</em>) – number of epochs for training</li>
-<li><strong>validation_split</strong> (<em>float</em><em>, </em><em>optional</em>) – proportion of the total dataset to be used for validation (default: 0.2)</li>
-<li><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true plots the training loss (red), validation loss (blue) vs epochs (default: True)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.Network.fit_generator">
-<code class="descname">fit_generator</code><span class="sig-paren">(</span><em>train_loader</em>, <em>val_loader</em>, <em>num_epochs</em>, <em>show_plot=False</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#network.Network.fit_generator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fits the dataset by taking data-loader as argument.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>num_epochs</strong> (<em>int</em>) – number of epochs for training</li>
-<li><strong>train_loader</strong> (<em>torch.utils.data.DataLoader</em>) – training dataset (with already processed batches)</li>
-<li><strong>val_loader</strong> (<em>torch.utils.data.DataLoader</em>) – validation dataset (with already processed batches)</li>
-<li><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true plots the training loss (red), validation loss (blue) vs epochs (default: True)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="network.Network.forward">
-<code class="descname">forward</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#network.Network.forward" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method for defining forward pass through the model.</p>
-<p>This method needs to be overridden by your implementation contain logic
-of the forward pass through your model.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>torch.Tensor</em>) – input tensor to the model</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
-<dt>tuple containing:</dt>
-<dd>(torch.Tensor): output tensor of the network
-(iterable): list of hidden layer outputs for dynamics tracking purposes</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(tuple)</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<div class="section" id="sequential">
-<h3>Sequential<a class="headerlink" href="./userguide.html#sequential" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="network.Sequential">
-<em class="property">class </em><code class="descclassname">network.</code><code class="descname">Sequential</code><span class="sig-paren">(</span><em>input_shape</em>, <em>gpu=False</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#network.Sequential" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keras like Sequential model.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>input_shape</strong> (<em>tuple</em>) – input tensor shape</li>
-<li><strong>gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true then PyGlow will attempt to use <cite>GPU</cite>, for false <cite>CPU</cite> will be used (default: False)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="ibsequential">
-<h3>IBSequential<a class="headerlink" href="./userguide.html#ibsequential" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="network.IBSequential">
-<em class="property">class </em><code class="descclassname">network.</code><code class="descname">IBSequential</code><span class="sig-paren">(</span><em>input_shape</em>, <em>gpu=False</em>, <em>track_dynamics=False</em>, <em>save_dynamics=False</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#network.IBSequential" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keras like Sequential model with extended more sophisticated Information
-Bottleneck functionalities for analysing the dynamics of training.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>input_shape</strong> (<em>tuple</em>) – input tensor shape</li>
-<li><strong>gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true then PyGlow will attempt to use <cite>GPU</cite>, for false <cite>CPU</cite> will be used (default: False)</li>
-<li><strong>track_dynamics</strong> (<em>bool</em>) – if true then will track the input-hidden-output dynamics segment and will allow evaluator to attach to the model, for false no track for dynamics is kept</li>
-<li><strong>save_dynamics</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true then saves the whole training process dynamics into a distributed file (for efficiency)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-</div>
-<div class="section" id="module-hsic">
-<span id="models-without-back-prop"></span><h2>‘Models without Back-prop’<a class="headerlink" href="./userguide.html#module-hsic" title="Permalink to this headline">¶</a></h2>
-<dl class="attribute">
-<dt id="hsic.HSIC">
-<code class="descclassname">hsic.</code><code class="descname">HSIC</code><a class="headerlink" href="./userguide.html#hsic.HSIC" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<div class="section" id="hsicsequential">
-<h3>HSICSequential<a class="headerlink" href="./userguide.html#hsicsequential" title="Permalink to this headline">¶</a></h3>
-<dl class="attribute">
-<dt id="hsic.HSICSequential">
-<code class="descclassname">hsic.</code><code class="descname">HSICSequential</code><a class="headerlink" href="./userguide.html#hsic.HSICSequential" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-</div>
-<div class="section" id="module-layer">
-<span id="layers"></span><h2>Layers<a class="headerlink" href="./userguide.html#module-layer" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="layer.Layer">
-<em class="property">class </em><code class="descclassname">layer.</code><code class="descname">Layer</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#layer.Layer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for all layer modules.</p>
-<p>Your layer should also subclass this class.</p>
-<dl class="method">
-<dt id="layer.Layer.forward">
-<code class="descname">forward</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#layer.Layer.forward" title="Permalink to this definition">¶</a></dt>
-<dd><p>Forward method overrides PyTorch forward method and contains the logic
-for the forward pass through the custom layer defined.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (<em>torch.Tensor</em>) – input tensor to the layer</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">output tensor of the layer</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">y (torch.Tensor)</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="layer.Layer.set_input">
-<code class="descname">set_input</code><span class="sig-paren">(</span><em>input_shape</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#layer.Layer.set_input" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes input_shape and demands user to define a variable self.output_shape
-which stores the output shape of the custom layer.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_shape</strong> (<em>tuple</em>) – input shape of the tensor which the layer expects to receive</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<div class="section" id="module-core">
-<span id="core"></span><h3>Core<a class="headerlink" href="./userguide.html#module-core" title="Permalink to this headline">¶</a></h3>
-<dl class="attribute">
-<dt id="core.Dense">
-<code class="descclassname">core.</code><code class="descname">Dense</code><a class="headerlink" href="./userguide.html#core.Dense" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="core.Dropout">
-<code class="descclassname">core.</code><code class="descname">Dropout</code><a class="headerlink" href="./userguide.html#core.Dropout" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="core.Flatten">
-<code class="descclassname">core.</code><code class="descname">Flatten</code><a class="headerlink" href="./userguide.html#core.Flatten" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-convolutional">
-<span id="convolutional"></span><h3>Convolutional<a class="headerlink" href="./userguide.html#module-convolutional" title="Permalink to this headline">¶</a></h3>
-<dl class="attribute">
-<dt id="convolutional.Conv1d">
-<code class="descclassname">convolutional.</code><code class="descname">Conv1d</code><a class="headerlink" href="./userguide.html#convolutional.Conv1d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="convolutional.Conv2d">
-<code class="descclassname">convolutional.</code><code class="descname">Conv2d</code><a class="headerlink" href="./userguide.html#convolutional.Conv2d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="convolutional.Conv3d">
-<code class="descclassname">convolutional.</code><code class="descname">Conv3d</code><a class="headerlink" href="./userguide.html#convolutional.Conv3d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-normalization">
-<span id="normalization"></span><h3>Normalization<a class="headerlink" href="./userguide.html#module-normalization" title="Permalink to this headline">¶</a></h3>
-<dl class="attribute">
-<dt id="normalization.BatchNorm1d">
-<code class="descclassname">normalization.</code><code class="descname">BatchNorm1d</code><a class="headerlink" href="./userguide.html#normalization.BatchNorm1d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="normalization.BatchNorm2d">
-<code class="descclassname">normalization.</code><code class="descname">BatchNorm2d</code><a class="headerlink" href="./userguide.html#normalization.BatchNorm2d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="normalization.BatchNorm3d">
-<code class="descclassname">normalization.</code><code class="descname">BatchNorm3d</code><a class="headerlink" href="./userguide.html#normalization.BatchNorm3d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-pooling">
-<span id="pooling"></span><h3>Pooling<a class="headerlink" href="./userguide.html#module-pooling" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="d">
-<h4>1-D<a class="headerlink" href="./userguide.html#d" title="Permalink to this headline">¶</a></h4>
-<dl class="attribute">
-<dt id="pooling.MaxPool1d">
-<code class="descclassname">pooling.</code><code class="descname">MaxPool1d</code><a class="headerlink" href="./userguide.html#pooling.MaxPool1d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pooling.AvgPool1d">
-<code class="descclassname">pooling.</code><code class="descname">AvgPool1d</code><a class="headerlink" href="./userguide.html#pooling.AvgPool1d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="id1">
-<h4>2-D<a class="headerlink" href="./userguide.html#id1" title="Permalink to this headline">¶</a></h4>
-<dl class="attribute">
-<dt id="pooling.MaxPool2d">
-<code class="descclassname">pooling.</code><code class="descname">MaxPool2d</code><a class="headerlink" href="./userguide.html#pooling.MaxPool2d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pooling.AvgPool2d">
-<code class="descclassname">pooling.</code><code class="descname">AvgPool2d</code><a class="headerlink" href="./userguide.html#pooling.AvgPool2d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="id2">
-<h4>3-D<a class="headerlink" href="./userguide.html#id2" title="Permalink to this headline">¶</a></h4>
-<dl class="attribute">
-<dt id="pooling.MaxPool3d">
-<code class="descclassname">pooling.</code><code class="descname">MaxPool3d</code><a class="headerlink" href="./userguide.html#pooling.MaxPool3d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pooling.AvgPool3d">
-<code class="descclassname">pooling.</code><code class="descname">AvgPool3d</code><a class="headerlink" href="./userguide.html#pooling.AvgPool3d" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-</div>
-<div class="section" id="module-hsic_output">
-<span id="hsic"></span><h3>HSIC<a class="headerlink" href="./userguide.html#module-hsic_output" title="Permalink to this headline">¶</a></h3>
-<dl class="attribute">
-<dt id="hsic_output.HSICoutput">
-<code class="descclassname">hsic_output.</code><code class="descname">HSICoutput</code><a class="headerlink" href="./userguide.html#hsic_output.HSICoutput" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-</div>
-<div class="section" id="information-bottleneck">
-<h2>Information Bottleneck<a class="headerlink" href="./userguide.html#information-bottleneck" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-estimator">
-<span id="estimator"></span><h3>Estimator<a class="headerlink" href="./userguide.html#module-estimator" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="estimator.Estimator">
-<em class="property">class </em><code class="descclassname">estimator.</code><code class="descname">Estimator</code><span class="sig-paren">(</span><em>gpu</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#estimator.Estimator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for all the estimator modules.</p>
-<p>Your estimator should also subclass this class.</p>
-<p>This Class is for implementing functionalities to estimate different dependence
-criterion in information theory like mutual information etc. These methods
-are further used in analysing training dyanmics of different architechures.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>gpu</strong> (<em>bool</em>) – if true then all the computation is carried on <cite>GPU</cite> else on <cite>CPU</cite></li>
-<li><strong>**kwargs</strong> – the keyword that stores parameters for the estimators</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="estimator.Estimator.criterion">
-<code class="descname">criterion</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#estimator.Estimator.criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines the criterion of the estimator for example EDGE algorithm have
-mutual information as its criterion. Generally criterion is some kind
-of dependence or independence measure between <cite>x</cite> and <cite>y</cite>. In the context
-of information theory most widely used criterion is mutual information
-between the two arguments.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x</strong> (<em>torch.Tensor</em>) – first random variable</li>
-<li><strong>y</strong> (<em>torch.Tensor</em>) – second random variable</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">calculated criterion of the two random variables ‘x’ and ‘y’</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(torch.Tensor)</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="estimator.Estimator.eval_dynamics_segment">
-<code class="descname">eval_dynamics_segment</code><span class="sig-paren">(</span><em>dynamics_segment</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#estimator.Estimator.eval_dynamics_segment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process smallest segment of dynamics and calculate coordinates using the
-defined criterion.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dynamics_segment</strong> (<em>iterable</em>) – smallest segment of the dynamics of a batch containing input, hidden layer output and label in form of <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code> objects</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of calculated coordinates according to the criterion with length equal to ‘len(dynamics_segment)-2’</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(iterable)</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="estimator.HSIC">
-<em class="property">class </em><code class="descclassname">estimator.</code><code class="descname">HSIC</code><span class="sig-paren">(</span><em>kernel</em>, <em>gpu=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#estimator.HSIC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class for estimating Hilbert-Schmidt Independence Criterion as done in
-paper “The HSIC Bottleneck: Deep Learning without Back-Propotion”.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<colgroup><col class="field-name">
-<col class="field-body">
-</colgroup><tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>kernel</strong> (<em>str</em>) – kernel which is used for calculating K matrix in HSIC criterion</li>
-<li><strong>gpu</strong> (<em>bool</em>) – if true then all the computation is carried on <cite>GPU</cite> else on <cite>CPU</cite></li>
-<li><strong>**kwargs</strong> – the keyword that stores parameters for HSIC criterion</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="estimator.HSIC.criterion">
-<code class="descname">criterion</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="./userguide.html#estimator.HSIC.criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines the HSIC criterion.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-</div>
-<div class="section" id="preprocessing">
-<h2>Preprocessing<a class="headerlink" href="./userguide.html#preprocessing" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-data_generator">
 <span id="data-loading-and-generation"></span><h3>Data Loading and Generation<a class="headerlink" href="./userguide.html#module-data_generator" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
